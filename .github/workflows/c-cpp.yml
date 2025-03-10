@@ -13,9 +13,10 @@ jobs:
       run: |
         sudo apt-get update
         sudo apt-get install -y g++ libgl1-mesa-dev libglu1-mesa-dev cmake git
-        # 安装X11和Wayland开发库
+        # 安装X11、Wayland和xkbcommon开发库
         sudo apt-get install -y libx11-dev libxext-dev libxrandr-dev libxinerama-dev libxi-dev
         sudo apt-get install -y libwayland-dev wayland-protocols libwayland-egl-backend-dev
+        sudo apt-get install -y libxkbcommon-dev
         # 安装其他图形相关依赖
         sudo apt-get install -y libasound2-dev libdbus-1-dev libudev-dev libinput-dev
         
@@ -25,7 +26,7 @@ jobs:
         cd SDL
         mkdir build
         cd build
-        cmake .. -DSDL_VIDEO_DRIVER_X11=ON -DSDL_VIDEO_DRIVER_WAYLAND=ON
+        cmake .. -DSDL_VIDEO_DRIVER_X11=ON -DSDL_VIDEO_DRIVER_WAYLAND=ON -DSDL_VULKAN=OFF
         make
         sudo make install
         
