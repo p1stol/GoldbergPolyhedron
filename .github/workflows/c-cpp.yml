@@ -12,11 +12,25 @@ jobs:
     - name: Install dependencies
       run: |
         sudo apt-get update
-        sudo apt-get install -y g++ libgl1-mesa-dev libsdl3-dev
+        sudo apt-get install -y g++ libgl1-mesa-dev libglu1-mesa-dev cmake git
+        
+    - name: Build and install SDL3
+      run: |
+        git clone https://github.com/libsdl-org/SDL.git
+        cd SDL
+        mkdir build
+        cd build
+        cmake ..
+        make
+        sudo make install
         
     - name: Build project
       run: |
-        g++ -o goldberg goldberg.cpp *.cpp -lGL -lGLU -lSDL3
+        g++ -o goldberg -I/usr/local/include/SDL3 -I/usr/include/GL goldberg.cpp *.cpp -lGL -lGLU -lSDL3
+        
+    - name: Copy shaders
+      run: |
+        cp fragmentshader.glsl vertexshader.glsl build/
         
     - name: Run tests
       run: ./goldberg
