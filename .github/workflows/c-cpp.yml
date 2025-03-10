@@ -13,6 +13,8 @@ jobs:
       run: |
         sudo apt-get update
         sudo apt-get install -y g++ libgl1-mesa-dev libglu1-mesa-dev cmake git
+        # 安装GLEW
+        sudo apt-get install -y libglew-dev
         # 安装X11、Wayland和xkbcommon开发库
         sudo apt-get install -y libx11-dev libxext-dev libxrandr-dev libxinerama-dev libxi-dev
         sudo apt-get install -y libwayland-dev wayland-protocols libwayland-egl-backend-dev
@@ -32,7 +34,7 @@ jobs:
         
     - name: Build project
       run: |
-        g++ -o goldberg -I/usr/local/include/SDL3 -I/usr/include/GL goldberg.cpp *.cpp -lGL -lGLU -lSDL3
+        g++ -o goldberg -I/usr/local/include/SDL3 -I/usr/include/GL goldberg.cpp *.cpp -lGL -lGLU -lSDL3 -lGLEW
         
     - name: Copy shaders
       run: |
